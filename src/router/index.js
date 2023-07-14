@@ -11,7 +11,7 @@ const router = createRouter({
                 {
                     path: '/',
                     name: 'SebTest',
-                    component: () => import('@/views/SebTest.vue')
+                    component: () => import('@/views/SebTest2.vue')
                 },
                 // {
                 //     path: '/',

@@ -8,7 +8,7 @@
                     <label for="inputtext">InputText</label>
                 </span>
             </div> -->
-            <div v-for="item in res" :key="item._id" class="field col-12 md:col-6">
+            <div v-for="item in res" :key="item._id" :class="col">
                 <div v-if="item.visible">
                     <div v-if="item.type=='textField'">
                         <h6>{{ item.label }}  <span v-if="item.required" style="color: red">*</span></h6>
@@ -86,24 +86,28 @@ export default {
     data() {
         return{
             currentDate: "",
+            col: "field col-12 md:col-5",
             res:[
             {
-                _id: 1,
-                label: "Text field",
-                type: "textField",
-                value: "",
-                defaultValue: "type here",
-                enabled: true,
-                icon: true,
-                regex: "[A-Za-z]",
-                maxLength: 5,
-                visible: true,
-                errFocus: true,
-                required: true,
-                labelMode: 1, // 1 top, 2 left, 3 bottom, 4 right
-                sendBackServer: true
+                
+                element: {
+                    _id: 1,
+                    label: "Text field",
+                    type: "textField",
+                    value: "3212142",
+                    defaultValue: "type 123",
+                    enabled: true,
+                    icon: true,
+                    regex: "[A-Za-z]", // key down
+                    maxLength: 5,
+                    visible: true,
+                    errFocus: false,
+                    required: false,
+                    labelMode: 1, // 1 top, 2 left, 3 bottom, 4 right
+                    sendBackServer: true,
+                }
             },
-            {
+            { // set special day
                 _id: 2,
                 label: "Date field",
                 type: "dateField",
@@ -134,7 +138,7 @@ export default {
                 labelMode: 1, // 1 top, 2 left, 3 bottom, 4 right
                 sendBackServer: true
             },
-            {
+            { // show password
                 _id: 4,
                 label: "Password field",
                 type: "passwordField",
