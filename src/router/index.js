@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
 
 const router = createRouter({
+    mode: 'history',
     history: createWebHashHistory(),
     routes: [
         {
@@ -18,6 +19,11 @@ const router = createRouter({
                 //     name: 'dashboard',
                 //     component: () => import('@/views/Dashboard.vue')
                 // },
+                {
+                    path: '/uikit/:pageID',
+                    name: 'PageView',
+                    component: () => import('@/views/PageView.vue')
+                },
                 {
                     path: '/uikit/formlayout',
                     name: 'formlayout',
@@ -173,7 +179,7 @@ const router = createRouter({
             path: '/auth/error',
             name: 'error',
             component: () => import('@/views/pages/auth/Error.vue')
-        }
+        },
     ]
 });
 

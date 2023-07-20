@@ -4,13 +4,13 @@
         <div class="card">
             <Toolbar>
                 <template v-slot:start>
-                    <Button v-if="headerRes.isAdd" label="Add" icon="pi pi-plus" class="p-button-success mr-2" />
+                    <Button :disabled="!headerRes.isAdd" label="Add" icon="pi pi-plus" class="p-button-success mr-2" />
                     <Button v-if="headerRes.isEdit" label="Edit" icon="pi pi-folder-open" class="p-button-warning mr-2" />
                     <Button v-if="headerRes.isDelete" label="Delete" icon="pi pi-trash" class="p-button-danger mr-2" />
                 </template>
                 <template v-slot:end>
-                    <Button @click="headerRes.enabled = true" label="Enable" icon="pi pi-check" class="p-button-success mr-2" />
-                    <Button @click="headerRes.enabled = false" label="Disable" icon="pi pi-times" class="p-button-danger mr-2" />
+                    <Button @click="headerRes.enabled = true" label="Ok" icon="pi pi-check" class="p-button-success mr-2" />
+                    <Button @click="headerRes.enabled = false" label="Cancel" icon="pi pi-times" class="p-button-danger mr-2" />
                     <a class="ml-2">Some Label - 912012</a>
                 </template>
             </Toolbar>
@@ -115,15 +115,24 @@
                                     {{ data[column.field].toLocaleString() }}
                                 </template>
                             </Column>
+                            <!-- {{ data[column.field] }} -->
                         </div>
                     </DataTable>
                 </div>
             </div>
         </div>
+
+        <!-- <div>
+            <button @click="loadComponent">Load External Component</button>
+            <component :is="dynamicComponent"></component>
+        </div> -->
     </div>
 </template>
 
+
 <script>
+// import { markRaw } from "vue";
+
 export default {
     // created() {
     //     const currentDate = new Date();
@@ -134,8 +143,9 @@ export default {
     // },
     data() {
         return{
+        dynamicComponent: null,
             headerRes: {
-                isAdd: true,
+                isAdd: false,
                 isEdit: true,
                 isDelete: true,
                 enabled: true,
@@ -214,19 +224,20 @@ export default {
                     { name: "ID", field: "id", visible: true , minWidth: "min-width: 5rem"},
                     { name: "Name", field: "name", visible: true , minWidth: "min-width: 12rem"},
                     { name: "Age", field: "age", visible: true , minWidth: "min-width: 5rem"},
-                    { name:"Networth", field:"networth", visible: true , minWidth: "min-width: 12rem"}
+                    { name:"Networth", field:"networth", visible: true , minWidth: "min-width: 12rem"},
+                    { name:"Amount", field:"amount", visible: true , minWidth: "min-width: 6rem"}
                 ],
                 data: [
-                    { status: 'Active', id: 1, name: 'John', age: 21, networth: 50 },
-                    { status: 'Inactive', id: 2, name: 'Jane', age: 22, networth: 3540 },
-                    { status: 'Active', id: 3, name: 'Bob', age: 23, networth: 42101 },
-                    { status: 'Inactive', id: 4, name: 'Alice', age: 24, networth: 64573 },
-                    { status: 'Active', id: 5, name: 'Mike', age: 25, networth: 5431 },
-                    { status: 'Active', id: 6, name: 'Sarah', age: 26, networth: 432311 },
-                    { status: 'Inactive', id: 7, name: 'David', age: 27, networth: 631 },
-                    { status: 'Active', id: 8, name: 'Emily', age: 28, networth: 769553 },
-                    { status: 'Inactive', id: 9, name: 'Michael', age: 29, networth: 1436 },
-                    { status: 'Active', id: 10, name: 'Olivia', age: 30, networth: 13582 }
+                    { status: 'Active', id: 1, name: 'John', age: 21, networth: 50, currency: "RM", amount: 30200},
+                    { status: 'Inactive', id: 2, name: 'Jane', age: 22, networth: 3540 , currency: "RM", amount: 30100},
+                    { status: 'Active', id: 3, name: 'Bob', age: 23, networth: 42101 , currency: "RM", amount: 30050},
+                    { status: 'Inactive', id: 4, name: 'Alice', age: 24, networth: 64573 , currency: "RM", amount: 30040},
+                    { status: 'Active', id: 5, name: 'Mike', age: 25, networth: 5431 , currency: "RM", amount: 30020},
+                    { status: 'Active', id: 6, name: 'Sarah', age: 26, networth: 432311 , currency: "RM", amount: 30100},
+                    { status: 'Inactive', id: 7, name: 'David', age: 27, networth: 631 , currency: "RM", amount: 30050},
+                    { status: 'Active', id: 8, name: 'Emily', age: 28, networth: 769553 , currency: "RM", amount: 30040},
+                    { status: 'Inactive', id: 9, name: 'Michael', age: 29, networth: 1436, currency: "RM", amount: 30300 },
+                    { status: 'Active', id: 10, name: 'Olivia', age: 30, networth: 13582, currency: "RM", amount: 300 }
                 ],
             },
         }
@@ -237,7 +248,18 @@ export default {
             const regex = new RegExp(regexPattern);
             if (!regex.test(event.key)) // if it does not pass
                 event.preventDefault();
-        }
+        },
+        // loadComponent() {
+        //     import('C:\\Users\\SebastianSoon\\Project\\HelloWorld.vue')
+        //     .then(component => {
+        //         this.dynamicComponent = markRaw(component.default || component);
+        //         console.log(this.dynamicComponent)
+        //         this.dynamicComponent.methods.sayHelloWorld("Testing");
+        //     })
+        //     .catch(error => {
+        //         console.error('Failed to load component:', error);
+        //     });
+        // }
     }
 }
 </script>
